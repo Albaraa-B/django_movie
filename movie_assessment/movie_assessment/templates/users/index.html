@@ -1,0 +1,13 @@
+{% if favs %}
+    <ul>
+    {% for movie in favs %}
+        <li><a href="/detail/{{ movie.id }}">{{ movie.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Favorites Yet.</p>
+{% endif %}
+
+{% if latest %}
+    <h2>{{ latest.title }}</h2>
+{% endif %}

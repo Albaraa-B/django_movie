@@ -1,0 +1,6 @@
+<h2>{{movie.title}}   Details</h2>
+<h4>Released: {{movie.release_date}}</h4>
+{% for genre in genres %}
+    <h4>{{genre.name}}</h4>
+{% endfor %}
+<p>{{movie.overview}}</p>
