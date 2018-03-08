@@ -41,12 +41,15 @@ def index(request):
 
 def detail(request, movie_id):
     r = requests.get('{}/movie/{}?api_key={}'.format(base_url, movie_id, api_key))
+    s = requests.get('{}/movie/{}/similar?api_key={}'.format(base_url, movie_id, api_key))
     if r.status_code == 200:
         movie = r.json()
         template = loader.get_template('users/detail.html')
         context = {
             'movie': movie,
             'favorite': False,
+            'similar': s.json(),
+            's': s.status_code
         }
         if 'user_id' in request.session.keys():
             try:
