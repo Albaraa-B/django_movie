@@ -1,0 +1,26 @@
+<form method="GET" action="/search">
+    <label>Search</label><input type="text" name="query" placeholder="Search...">
+    <input type="submit" value="Search" />
+</form>
+
+{% if results.results %}
+    <div id="results">
+        {% for movie in results.results %}
+        <div id="{{forLoop.counter}}_result">
+            <h2><a href="/detail/{{movie.id}}"> {{movie.title}}   Details </a></h2>
+            <h4>Released: {{movie.release_date}}</h4>
+            {% for genre in genres %}
+                <h4>{{genre.name}}</h4>
+            {% endfor %}
+            <p>{{movie.overview}}</p>
+            <p>IMDB:<a href='https://www.imdb.com/title/{{movie.imdb_id}}'>{{movie.imdb_id}}</a></p>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+<div id="no_results">
+    <p>No results were found</p>
+</div>
+{% endif %}
+<pre>{{results}}</pre>
+<pre>{{response}}</pre>

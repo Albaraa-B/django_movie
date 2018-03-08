@@ -4,3 +4,17 @@
     <h4>{{genre.name}}</h4>
 {% endfor %}
 <p>{{movie.overview}}</p>
+<p>IMDB:<a href='https://www.imdb.com/title/{{movie.imdb_id}}'>{{movie.imdb_id}}</a></p>
+{% if not favorite %}
+<form action='/add_favorite' method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="movie_id" value="{{movie.id}}">
+    <input type="submit" value="Add to Favorites" />
+</form>
+{% else %}
+<form action='/remove_favorite' method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="movie_id" value="{{movie.id}}">
+    <input type="submit" value="Remove from Favorites" />
+</form>
+{% endif %}

@@ -1,3 +1,25 @@
+{% if not request.session.user_id%}
+<form method="POST" action="/login">
+    {% csrf_token %}
+    <label>Username</label><input type="text" name="username" placeholder="username...">
+    <label>Password</label><input type="text" name="password" placeholder="password...">
+    <input type="submit" value="Login" />
+</form>
+<a href="/register">Register</a>
+{% else %}
+    <div><p>Hi Agent: {{request.session.user_id }}</p>
+        <form method="POST" action="/logout">
+            {% csrf_token %}
+            <input type="hidden" name="user_id" value="{{request.session.user_id}}">
+            <input type="submit" value="Logout" />
+        </form>
+    </div>
+
+{% endif %}
+<form method="GET" action="/search">
+    <label>Search</label><input type="text" name="query" placeholder="Search...">
+    <input type="submit" value="Search" />
+</form>
 {% if favs %}
     <ul>
     {% for movie in favs %}
@@ -9,5 +31,7 @@
 {% endif %}
 
 {% if latest %}
-    <h2>{{ latest.title }}</h2>
+    <h4><a href="/detail/{{latest.id}}">{{ latest.title }}</a></h4>
 {% endif %}
+
+{{f}}
