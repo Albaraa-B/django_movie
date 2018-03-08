@@ -33,11 +33,10 @@ def index(request):
                 movie = r.json()
                 favs_movies.append(movie)
         context['favs'] = favs_movies
-        context['f'] = favs[0][0]
     template = loader.get_template('users/index.html')
-    
+
     return HttpResponse(template.render(context, request))
-    
+
 
 def detail(request, movie_id):
     r = requests.get('{}/movie/{}?api_key={}'.format(base_url, movie_id, api_key))
@@ -88,8 +87,9 @@ def login(request):
         user = User.objects.get(username=username, password=password)
         if user:
             request.session['user_id'] = user.id
-        return index(request)
-    
+        return HttpResponseRedirect('/')
+
+
 def add_favorite(request):
     if request.method == 'POST':
         if 'user_id' in request.session.keys():
@@ -98,9 +98,10 @@ def add_favorite(request):
             movie_id=request.POST['movie_id']
             n_fav = User_Fav(user_id=user, movie=movie_id)
             n_fav.save()
-            return index(request)
+            return HttpResponseRedirect('/')
         else:
-            return index(request)
+            return HttpResponseRedirect('/')
+
 
 def remove_favorite(request):
     if request.method == 'POST':
@@ -110,19 +111,25 @@ def remove_favorite(request):
             movie_id=request.POST['movie_id']
             n_fav = User_Fav.objects.get(user_id=user, movie=movie_id)
             n_fav.delete()
-            return index(request)
+            return HttpResponseRedirect('/')
         else:
-            return index(request)
+            return HttpResponseRedirect('/')
+
 
 def register(request):
     if request.method == "POST":
         user = User(username = request.POST['username'], password = request.POST['password'])
         user.save()
         request.session['user_id'] = user.id
-        return index(request)
+        return HttpResponseRedirect('/')
+    else:
+        template = loader.get_template('users/register.html')
+        context = {}
+        return HttpResponse(template.render(context, request))
+
 
 def logout(request):
     if request.method == "POST":
         if 'user_id' in request.session.keys():
             del request.session['user_id']
-            return index(request)
+            return HttpResponseRedirect('/')

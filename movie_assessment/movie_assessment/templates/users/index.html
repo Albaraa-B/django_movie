@@ -15,7 +15,7 @@
                     height: 100%;
                     color: #777;
                     line-height: 1.8;
-                    background-image: url('/images/WWDC2017_Beach_preview.jpeg')
+                    background:white url("images/WWDC2017_Beach_preview.jpeg") no-repeat
 
                 }
 
@@ -44,7 +44,7 @@
                 <label>Password  </label><input type="text" name="password" placeholder="password...">
                 <input type="submit" value="Login" />
             </form>
-            <a href="/register">Register</a>
+            <a href="/register/">Register</a>
             {% else %}
                 <div><p>Hi Agent: {{request.session.user_id }}</p>
                     <form method="POST" action="/logout">

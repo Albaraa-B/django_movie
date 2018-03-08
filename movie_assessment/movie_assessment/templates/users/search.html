@@ -60,30 +60,32 @@
                     <nav><a href="/">Dashboard</a></nav>
                 </div>
         </div>
-        <form method="GET" action="/search">
-            <label>Search</label><input type="text" name="query" placeholder="Search...">
-            <input type="submit" value="Search" />
-        </form>
-
-        {% if results.results %}
-            <div id="results">
-                {% for movie in results.results %}
-                <div id="{{forLoop.counter}}_result">
-                    <h2><a href="/detail/{{movie.id}}"> {{movie.title}}   Details </a></h2>
-                    <h4>Released: {{movie.release_date}}</h4>
-                    {% for genre in genres %}
-                        <h4>{{genre.name}}</h4>
+        <div class="w3-content w3-container w3-padding-64">
+            <form method="GET" action="/search">
+                <label>Search</label><input type="text" name="query" placeholder="Search...">
+                <input type="submit" value="Search" />
+            </form>
+            
+            {% if results.results %}
+                <div id="results" class="w3-content w3-container w3-padding-64">
+                    {% for movie in results.results %}
+                    <div id="{{forLoop.counter}}_result">
+                        <h2><a href="/detail/{{movie.id}}"> {{movie.title}}   Details </a></h2>
+                        <h4>Released: {{movie.release_date}}</h4>
+                        {% for genre in genres %}
+                            <h4>{{genre.name}}</h4>
+                        {% endfor %}
+                        <p>{{movie.overview}}</p>
+                        <p>IMDB:<a href='https://www.imdb.com/title/{{movie.imdb_id}}'>{{movie.imdb_id}}</a></p>
+                    </div>
                     {% endfor %}
-                    <p>{{movie.overview}}</p>
-                    <p>IMDB:<a href='https://www.imdb.com/title/{{movie.imdb_id}}'>{{movie.imdb_id}}</a></p>
                 </div>
-                {% endfor %}
+            {% else %}
+            <div id="no_results" class="w3-content w3-container w3-padding-64">
+                <p>No results were found</p>
             </div>
-        {% else %}
-        <div id="no_results">
-            <p>No results were found</p>
+            {% endif %}
         </div>
-        {% endif %}
     </body>
 
 </html>

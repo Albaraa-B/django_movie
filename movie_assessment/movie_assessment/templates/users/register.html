@@ -1,4 +1,4 @@
-{% if not request.session.user_id%}
+{% if not request.session.user_id %}
 <form method="POST" action="/register">
     {% csrf_token %}
     <label>Username</label><input type="text" name="username" placeholder="username...">

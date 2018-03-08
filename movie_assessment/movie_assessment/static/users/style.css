@@ -15,7 +15,7 @@ body, html {
 
 /* First image (Logo. Full height) */
 .bgimg-1 {
-    background-image: grey url('images/WWDC2017_Beach_preview.jpeg');
+    background-image: grey url("images/WWDC2017_Beach_preview.jpeg");
     min-height: 100%;
 }
 

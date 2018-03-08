@@ -59,30 +59,32 @@
                     <div class="w3-bar" id="myNavbar">
                         <nav><a href="/">Dashboard</a></nav>
                     </div>
-            </div> 
-        <h2>{{movie.title}}   Details</h2>
-        <h4>Released: {{movie.release_date}}</h4>
-        {% for genre in genres %}
-            <h4>{{genre.name}}</h4>
-        {% endfor %}
-        <p>{{movie.overview}}</p>
-        <p>IMDB:<a href='https://www.imdb.com/title/{{movie.imdb_id}}'>{{movie.imdb_id}}</a></p>
-        {% if request.session.user_id %}
-            {% if not favorite %}
-            <form action='/add_favorite' method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="movie_id" value="{{movie.id}}">
-                <input type="submit" value="Add to Favorites" />
-            </form>
-            {% else %}
-            <form action='/remove_favorite' method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="movie_id" value="{{movie.id}}">
-                <input type="submit" value="Remove from Favorites" />
-            </form>
+            </div>
+        <div id="favorites_box" class="w3-content w3-container w3-padding-64">
+            <h2>{{movie.title}}   Details</h2>
+            <h4>Released: {{movie.release_date}}</h4>
+            {% for genre in genres %}
+                <h4>{{genre.name}}</h4>
+            {% endfor %}
+            <p>{{movie.overview}}</p>
+            <p>IMDB:<a href='https://www.imdb.com/title/{{movie.imdb_id}}'>{{movie.imdb_id}}</a></p>
+            {% if request.session.user_id %}
+                {% if not favorite %}
+                <form action='/add_favorite' method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="movie_id" value="{{movie.id}}">
+                    <input type="submit" value="Add to Favorites" />
+                </form>
+                {% else %}
+                <form action='/remove_favorite' method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="movie_id" value="{{movie.id}}">
+                    <input type="submit" value="Remove from Favorites" />
+                </form>
+                {% endif %}
             {% endif %}
-        {% endif %}
-        <div id="similar movies">
+        </div>
+        <div id="similar movies" class="w3-content w3-container w3-padding-64"> 
             <h3> Similar Movies</h3>
             {% if similar.results %}
             <div id="results">
@@ -93,12 +95,12 @@
                 </div>
                 {% endfor %}
             </div>
-        {% else %}
-        <div id="no_results">
-            <p>No Similar movies were found</p>
+            {% else %}
+            <div id="no_results">
+                <p>No Similar movies were found</p>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-        </div>
-        {{s}}
+            
     </body>
 </html>
